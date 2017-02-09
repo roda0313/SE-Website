@@ -55,6 +55,7 @@
 					<input class="form-control" type="text" placeholder="Username" name="username">
 					<input class="form-control" type="password" placeholder="Password" name="password">
 					<button class="btn btn-default" type="submit">Sign In</button>
+					<a href="#"><button class="btn btn-primary" type="button">Sign Up</button></a>
 				</form>
 				<?php endif; ?>
 			</div>				
