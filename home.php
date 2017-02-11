@@ -45,24 +45,31 @@
 					
 						<li><a href="#link"><label><?php echo $_SESSION['username']; ?></label></a></li>
 						<li>
-							<form class="navbar-form" method="post" action="logout.php">
+							<form class="navbar-form" method="post" action="Auth/logout.php">
 								<button class="btn btn-primary" type="submit">Logout</button>
 							</form>
 						</li>
 					</ul>
 				<?php else : ?>
-				<form class="navbar-form navbar-right" method="post" action="login.php">
+				<form class="navbar-form navbar-right" method="post" action="Auth/login.php">
 					<input class="form-control" type="text" placeholder="Username" name="username">
 					<input class="form-control" type="password" placeholder="Password" name="password">
 					<button class="btn btn-default" type="submit">Sign In</button>
-					<a href="#"><button class="btn btn-primary" type="button">Sign Up</button></a>
+					<a href="Auth/signup.php"><button class="btn btn-primary" type="button">Sign Up</button></a>
 				</form>
 				<?php endif; ?>
 			</div>				
 		</div>
 	</nav>	
+	
+	<!-- Main page content -->
+	<div class="container" align="Center">
+		<br><br><br><img src="Images/pic.jpg"/><br><br><br>
+	</div>
 		
-	<footer>&copy Daniel Roberts</footer>
+	<div align="center">
+	  <footer>Email: <a href="mailto:djr9478@rit.edu" target="_top">djr9478@rit.edu </a> &copy Daniel Roberts</footer>
+	</div>	
 	
 </body>
 </html>

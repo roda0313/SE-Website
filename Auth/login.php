@@ -8,12 +8,11 @@ if($_POST['username'] == "test" & $_POST['password'] == "test")
 	$_SESSION['username'] = 'test';
 	$_SESSION['loggedin'] = true;
 	
-	header('Refresh: 0; URL = home.php');
+	header('Refresh: 0; URL = ../home.php');
 }
 else
 {
-	header('Refresh: 0; URL = home.php');
+	header('Refresh: 0; URL = ../home.php');
 }
-
 	
 ?>

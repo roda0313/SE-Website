@@ -3,6 +3,8 @@
 read -p "This action will completely delete any existing database. Are you sure you wish to continue? [y/n]" selection; 
 if [ $selection == "y" ] 
 then 
-	rm users.db
+	if [ -f users.db ]; then
+		rm users.db
+	fi
 	sqlite3 users.db < createDB.sql
 fi

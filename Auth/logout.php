@@ -5,5 +5,5 @@
 	unset($_SESSION["password"]);
 	$_SESSION['loggedin'] = false;
 	
-	header('Refresh: 0; URL = home.php');
+	header('Refresh: 0; URL = ../home.php');
 ?>
