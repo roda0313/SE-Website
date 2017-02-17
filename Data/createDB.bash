@@ -8,3 +8,6 @@ then
 	fi
 	sqlite3 users.db < createDB.sql
 fi
+
+chmod a+rwx users.db
+chmod a+rwx .

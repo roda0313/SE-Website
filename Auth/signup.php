@@ -3,6 +3,7 @@
 
 <head>	
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width"/>
 	
 	<title>Daniel Roberts Sign Up</title>
 	<meta name="description" content="Daniel Roberts Website">
@@ -57,8 +58,108 @@
 				$emailValid = true;
 			}
 			
+			//check username is valid
+			if ($passwordValid & $emailValid){
+				if (file_exists ( "/home/spring2015/djr9478/public_html/Data/users.db" )){
+					$dir = '/home/spring2015/djr9478/public_html/Data/users.db';
+					$query = "SELECT * FROM USERS WHERE USERNAME='$username'";
+					//$query_string = "SELECT * FROM USERS";
+					
+					// define a variable to switch on/off error messages
+					$sqliteDebug = true;
+					try {
+						// connect to your database
+						$sqlite = new SQLite3($dir);
+					}
+					catch (Exception $exception) {
+						// sqlite3 throws an exception when it is unable to connect
+						echo '<p>There was an error connecting to the database!</p>';
+						if ($sqliteDebug) {
+							echo $exception->getMessage();
+						}
+					}
+					
+					$sqliteResult = $sqlite->query($query);
+					
+					if (!$sqliteResult and $sqliteDebug) {
+						// the query failed and debugging is enabled
+						echo "<p>There was an error in query: $query</p>";
+						echo $sqlite->lastErrorMsg();
+					}
+					
+					if ($sqliteResult) {
+						if ($record = $sqliteResult->fetchArray()) {
+							//record was found
+							$usernameErr = "Username already taken";
+							$usernameValid = false;
+						}
+						else {
+							$usernameValid = true;
+						}
+						
+						$sqliteResult->finalize();
+					}
+					
+					// clean up any objects
+					$sqlite->close();
+				}
+				else {
+					header("Location: error.php"); /* Redirect browser */
+					exit;
+				}
+			}
+			
 			if ($passwordValid & $usernameValid & $emailValid){
+				//all valid create database objects
 				
+				if (file_exists ( "/home/spring2015/djr9478/public_html/Data/users.db" )){
+					$dir = '/home/spring2015/djr9478/public_html/Data/users.db';
+					$query = 'INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ("' . $username . '","' . $password . '","' . $email . '")';
+					// define a variable to switch on/off error messages
+					$sqliteDebug = true;
+					try {
+						// connect to your database
+						$sqlite = new SQLite3($dir);
+					}
+					catch (Exception $exception) {
+						// sqlite3 throws an exception when it is unable to connect
+						echo '<p>There was an error connecting to the database!</p>';
+						if ($sqliteDebug) {
+							echo $exception->getMessage();
+						}
+					}
+					
+					try {
+						$success = $sqlite->exec($query);
+						
+						//tell user account was created
+						if ($success){
+							echo '<p>Account Created!</p>';
+							sleep(2);
+							header("Location: ../home.php");
+							exit;
+						}
+						else {
+							echo '<p>Could not create account!</p>';
+							if ($sqliteDebug){
+								echo $sqlite->lastErrorMsg();
+							}
+						}
+					}
+					catch (Exception $exception){
+						echo '<p>Could not create account!</p>';
+						if ($sqliteDebug) {
+							echo $exception->getMessage();
+						}
+					}
+					
+					// clean up any objects
+					$sqlite->close();
+				}
+				else {
+					header("Location: error.php"); /* Redirect browser */
+					exit;
+				}
 			}
 		}
          

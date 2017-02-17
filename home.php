@@ -8,6 +8,14 @@
 	<title>Daniel Roberts Website</title>
 	<meta name="description" content="Daniel Roberts Website">
 	<meta name="author" content="Daniel Roberts">
+	<meta name="viewport" content="width=device-width"/>
+	
+	<!-- JQuery -->
+	<script
+		src="https://code.jquery.com/jquery-3.1.1.min.js"
+		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		crossorigin="anonymous">
+	</script>
 	
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -24,15 +32,14 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
+					<span class="icon-bar"></span> 
+				</button>				
 			</div>
 			
-			<div class="collapse navbar-collapse" id="navbar-collapse">
+			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav navbar-left">
 					<li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
 					<li><a href="Activities.html">Activities</a></li>
@@ -43,7 +50,11 @@
 				<?php if($_SESSION['loggedin'] == true) : ?>
 					<ul class="nav navbar-nav navbar-right">
 					
-						<li><a href="#link"><label><?php echo $_SESSION['username']; ?></label></a></li>
+						<li><a href="#link"><span class="glyphicon glyphicon-user"></span>
+							<label><?php echo $_SESSION['username']; ?></label>
+							</a>
+						</li>
+						
 						<li>
 							<form class="navbar-form" method="post" action="Auth/logout.php">
 								<button class="btn btn-primary" type="submit">Logout</button>

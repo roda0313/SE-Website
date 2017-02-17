@@ -1,0 +1,1 @@
+<?php echo "An unknown critical error occured" ?>
