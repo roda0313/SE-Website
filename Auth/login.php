@@ -37,6 +37,17 @@ if (file_exists ( "/home/spring2015/djr9478/public_html/Data/users.db" )){
 				$_SESSION['username'] = $_POST['username'];
 				$_SESSION['loggedin'] = true; 
 				
+				//set last visit cookie
+				$year = 31536000 + time(); //this adds one year to the current time, for the cookie expiration 
+				
+				if ($reocrd['LASTVISIT']) {
+					$_COOKIE["LastVisit"] = $record['LASTVISIT'];
+				}
+				else {
+					$_COOKIE["LastVisit"] = "Never";
+				}
+				
+				
 				//redirect 
 				header('Refresh: 0; URL = ../home.php');
 			}

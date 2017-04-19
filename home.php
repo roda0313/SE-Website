@@ -1,50 +1,17 @@
 <?php 
 session_start(); 
 include 'RSSFeeds.php';
+include 'Auth/getLastVisit.php';
 
 //ini_set('display_startup_errors', 1);
 //ini_set('display_errors', 1);
 //error_reporting(-1);
 
-if (isset($_SESSION['username']))
-{
-	$last = time();
-	
-	//get LastVisit from database and set cookie
-	$dir = '/home/spring2015/djr9478/public_html/Data/users.db';
-	$query = "SELECT LASTVISIT FROM Users WHERE USERNAME='" . $_SESSION['username'] . "'";
-	
-	// define a variable to switch on/off error messages
-	$sqliteDebug = false;
-	try {
-		// connect to your database
-		$sqlite = new SQLite3($dir);
-	}
-	catch (Exception $exception) {
-		// sqlite3 throws an exception when it is unable to connect
-		echo '<p>An error occurred</p>';
-		if ($sqliteDebug) {
-			echo $exception->getMessage();
-		}
-	}
-	
-	$sqliteResult = $sqlite->query($query);
-	
-	if ($sqliteResult) 
-	{
-		if($record = $sqliteResult->fetchArray()) 
-		{
-			$last = $record['LASTVISIT'];
-		}
-		
-	}
-	
+if (isset($_SESSION['username'])) {	
 	$year = 31536000 + time(); //this adds one year to the current time, for the cookie expiration 
-	setcookie("LastVisit", $last, $year);
-	
-	// clean up any objects
-	$sqliteResult->finalize();
-	$sqlite->close();
+	$time = getLastVisit();
+	setcookie('LastVisit', $time, $year);
+	$_COOKIE['LastVisit'] = $time;
 }
 
 ?>
@@ -103,6 +70,11 @@ if (isset($_SESSION['username']))
 			document.getElementById(divId).remove();
 		}
 	}
+	
+	//for cookies storing, determine when a user leaves the page
+	//$(window).unload(function() {
+		//return "Handler for .unload() called.";
+	//});
 		
 	</script>
 	
@@ -161,6 +133,8 @@ if (isset($_SESSION['username']))
 			if (isset($_COOKIE['LastVisit']))
 			{
 				$dateAsString = date("D F Y g:i:s A", $_COOKIE['LastVisit']);
+				echo "<script> console.log('".$_COOKIE['LastVisit']."') </script>";
+				
 				echo "<h1>Welcome back " . $_SESSION['username'] . " your last visit was " . $dateAsString . "</h1>";
 			}
 			
