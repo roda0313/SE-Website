@@ -42,20 +42,19 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="index.html">Home</a></li>
-					<li class="active"><a href="Activities.html">Activities <span class="sr-only">(current)</span></a></li>
 					<li><a href="Homework.html">Homework</a></li>
+					<li class="active"><a href="about.php">About <span class="sr-only">(current)</span></a></li>
 				</ul>
 			</div>
 		</div>
-	</nav>
-
+	</nav>	
+		
 	<div class="container">
-		<div class="list-group">
-  			<a href="Get_Post_Activity/main.html" class="list-group-item">GET/POST</a>
-		</div>
 	</div>
 
 	<div align="center">
 	  <footer>&copy Daniel Roberts</footer>
 	</div>	
+	
 </body>
+</html>

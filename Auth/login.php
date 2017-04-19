@@ -4,7 +4,6 @@ session_start();
 if (file_exists ( "/home/spring2015/djr9478/public_html/Data/users.db" )){
 	$dir = '/home/spring2015/djr9478/public_html/Data/users.db';
 	$query = "SELECT * FROM USERS WHERE USERNAME='" . $_POST['username'] . "'";
-	//$query_string = "SELECT * FROM USERS";
 	
 	// define a variable to switch on/off error messages
 	$sqliteDebug = true;
@@ -14,7 +13,7 @@ if (file_exists ( "/home/spring2015/djr9478/public_html/Data/users.db" )){
 	}
 	catch (Exception $exception) {
 		// sqlite3 throws an exception when it is unable to connect
-		echo '<p>There was an error connecting to the database!</p>';
+		echo '<p>An error occurred</p>';
 		if ($sqliteDebug) {
 			echo $exception->getMessage();
 		}
@@ -36,8 +35,9 @@ if (file_exists ( "/home/spring2015/djr9478/public_html/Data/users.db" )){
 				$_SESSION['valid'] = true;
 				$_SESSION['timeout'] = time();
 				$_SESSION['username'] = $_POST['username'];
-				$_SESSION['loggedin'] = true;
-			
+				$_SESSION['loggedin'] = true; 
+				
+				//redirect 
 				header('Refresh: 0; URL = ../home.php');
 			}
 			else
