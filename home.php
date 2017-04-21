@@ -2,6 +2,7 @@
 session_start(); 
 include 'RSSFeeds.php';
 include 'Auth/getLastVisit.php';
+include 'Auth/setLastVisit.php';
 
 //ini_set('display_startup_errors', 1);
 //ini_set('display_errors', 1);
@@ -71,16 +72,17 @@ if (isset($_SESSION['username'])) {
 		}
 	}
 	
-	//for cookies storing, determine when a user leaves the page
-	//$(window).unload(function() {
-		//return "Handler for .unload() called.";
-	//});
+	function pageUnload() 
+	{
+		//for cookies storing, determine when a user leaves the page
+		document.getElementById("body").innerHTML += "<?php setLastVisit(); ?>"
+	}
 		
 	</script>
 	
 </head>
 
-<body>
+<body id="body" onunload="pageUnload()">
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -132,9 +134,7 @@ if (isset($_SESSION['username'])) {
 		{
 			if (isset($_COOKIE['LastVisit']))
 			{
-				$dateAsString = date("D F Y g:i:s A", $_COOKIE['LastVisit']);
-				echo "<script> console.log('".$_COOKIE['LastVisit']."') </script>";
-				
+				$dateAsString = date("D F Y g:i:s A", $_COOKIE['LastVisit']);				
 				echo "<h1>Welcome back " . $_SESSION['username'] . " your last visit was " . $dateAsString . "</h1>";
 			}
 			
