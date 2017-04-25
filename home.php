@@ -42,6 +42,9 @@ if (isset($_SESSION['username'])) {
 	
 	function checkboxChange(CheckboxName)
 	{
+		//set cookie
+		//document.cookie = CheckboxName + "=1";
+		
 		var divId = CheckboxName + " Feed";
 		
 		if(document.getElementById(CheckboxName).checked)
@@ -55,8 +58,6 @@ if (isset($_SESSION['username'])) {
 					iDiv.id = divId;
 					iDiv.innerHTML += ("<h3>" + CheckboxName + "</h3>");
 					iDiv.innerHTML += xmlHttp.responseText;
-					
-					console.log(iDiv);
 
 					document.getElementById("FeedDiv").appendChild(iDiv);
 					//document.getElementById(CheckboxName).innerHTML = xmlHttp.responseText;
@@ -68,6 +69,7 @@ if (isset($_SESSION['username'])) {
 		}
 		else 
 		{
+			//document.cookie = CheckboxName + "=0";
 			document.getElementById(divId).remove();
 		}
 	}
@@ -140,7 +142,28 @@ if (isset($_SESSION['username'])) {
 			
 			DisplayFeedOptions($_SESSION['username']);
 			
+			echo '<div class="panel-group">';
+			
+			echo '<div class="panel panel-default">';
+			echo '<div class="panel-heading">';
+			echo '<h4 class="panel-title">';
+			echo '<a align="left" data-toggle="collapse" href="#FavouritesDiv">Favorites</a>';
+			echo '</h4>';
+			echo '</div>';
+			echo "<div class='container' align='left' id='FavouritesDiv'>";
+			echo '</div>';
+			echo '</div>';
+			
+			echo '<div class="panel panel-default">';
+			echo '<div class="panel-heading">';
+			echo '<h4 class="panel-title">';
+			echo '<a align="left" data-toggle="collapse" href="#FeedDiv">News Feeds</a>';
+			echo '</h4>';
+			echo '</div>';
 			echo "<div class='container' align='left' id='FeedDiv'>";
+			echo '</div>';
+			echo '</div>';
+			
 			echo '</div>';
 		}
 		else 

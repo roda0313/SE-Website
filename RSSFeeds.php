@@ -29,7 +29,15 @@ function DisplayFeedOptions($username)
 		{
 			$name =  $record['NAME'] ;
 			$nameAsString = "\"" . $name . "\"";
-			$htmlString = $htmlString . "<label class='checkbox-inline'><input type='checkbox' onchange='checkboxChange(".$nameAsString.")' id='".$name."'>".$name."</label>";
+
+			if ($_COOKIE[(preg_replace('/\s+/', '_', $name))] == 1)
+			{
+				$htmlString = $htmlString . "<label class='checkbox-inline'><input type='checkbox' checked onchange='checkboxChange(".$nameAsString.")' id='".$name."'>".$name."</label>";
+			}
+			else 
+			{
+				$htmlString = $htmlString . "<label class='checkbox-inline'><input type='checkbox' onchange='checkboxChange(".$nameAsString.")' id='".$name."'>".$name."</label>";
+			}
 		}
 		
 		$htmlString = $htmlString . "</div>";
@@ -131,7 +139,8 @@ function getFeed($feed_url)
      
     foreach($x->channel->item as $entry) 
 	{
-        echo "<a href='$entry->link' title='$entry->title'>" . $entry->title . "</a><br>";
+        echo "<a href='$entry->link' title='$entry->title'>" . $entry->title . "</a>";
+		echo "&#9<a href='#' class='btn btn-sm btn-default'><span class='glyphicon glyphicon-thumbs-up'></span> Like</a><br/>";
 		echo "$entry->description <br><br>";
     }
 }

@@ -4,7 +4,9 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html>
+<head>
 
+</head>
 <?php 
 	switch($_SESSION['color'])
 	{
@@ -43,6 +45,11 @@ You are a valid user. Here is your reward!!!<br />
 <br />
 <a href="session2.php">Another page</a>
 
+<form action="setName.php" method="get">
+  First name:<br>
+  <input type="text" name="firstname" id="firstname" value="<?php echo $_SESSION['name'] ?>"><br>
+  <input type="submit" value="Submit">
+</form>
 
 
 <?php  

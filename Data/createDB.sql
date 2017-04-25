@@ -27,6 +27,15 @@ CREATE TABLE NewsFeed (
 	LINK TEXT NOT NULL
 );
 
+CREATE TABLE FavouriteArticles (
+	ID INTEGER PRIMARY KEY,
+	USERNAME INT NOT NULL,
+	TITLE TEXT NOT NULL,
+	LINK TEXT NOT NULL,
+	DESCRIPTION TEXT NOT NULL,
+	FOREIGN KEY(USERNAME) REFERENCES Users(USERNAME)
+);
+
 INSERT INTO NewsFeed (NAME, LINK) VALUES ("BBC News", "https://feeds.bbci.co.uk/news/rss.xml?edition=us");
 INSERT INTO NewsFeed (NAME, LINK) VALUES ("Google News", "https://news.google.com/news?cf=all&hl=en&pz=1&ned=us&topic=w&output=rss");
 INSERT INTO NewsFeed (NAME, LINK) VALUES ("CNN", "http://rss.cnn.com/rss/cnn_topstories.rss");

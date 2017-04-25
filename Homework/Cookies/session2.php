@@ -25,7 +25,17 @@ session_start();
 if ($_SESSION["username"] != "") {
 	echo "<h1>Hello ";
     echo $_SESSION["username"];
-    echo "<h2> ";
+    echo "<h1> ";
+	echo "<br />";
+	
+	if (isset($_SESSION["name"]))
+	{
+		echo "<h1>You input  ";
+		echo $_SESSION["name"];
+		echo " as your name<h1> ";
+		echo "<br />";
+	}
+	echo "<a href='session3.php'>Yet another page</a>";
 }else{
 ?>
 
@@ -35,8 +45,6 @@ if ($_SESSION["username"] != "") {
 	<?php
 }
 ?>
-
-
 
 
 </body>
