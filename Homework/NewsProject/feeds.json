@@ -1,19 +1,18 @@
 [
   {
-    "name" : "BBC News",
-    "link" : "https://feeds.bbci.co.uk/news/rss.xml?edition=us"
-  },
-  {
-    "name" : "CNN",
-    "link" : "http://rss.cnn.com/rss/cnn_topstories.rss"
-  },
-  {
-    "name" : "Al Jazeera",
-    "link" : "http://www.aljazeera.com/xml/rss/all.xml"
-  },
-  {
-    "name" : "NBC News",
+    "name" : "NBC Top Stories",
     "link" : "http://feeds.nbcnews.com/feeds/topstories"
+  },
+  {
+    "name" : "NHL News",
+    "link" : "https://sports.yahoo.com/nhl/rss.xml"
+  },
+  {
+    "name" : "Stocks",
+    "link" : "http://feeds.marketwatch.com/marketwatch/topstories/"
+  },
+  {
+    "name" : "CNET Technology News",
+    "link" : "https://www.cnet.com/rss/news/"
   }
-  
 ]

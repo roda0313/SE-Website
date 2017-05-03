@@ -6,7 +6,7 @@ include "Functions.php" ;
 //ini_set('display_errors', 1);
 //error_reporting(-1);
 
-function setLastVisit()
+function setFirstVisit()
 {
 	$year = 31536000 + time(); //this adds one year to the current time, for the cookie expiration 
 	$time = time();
@@ -14,9 +14,90 @@ function setLastVisit()
 	$_COOKIE['LastVisit'] = $time;
 }
 
+function writeLastVisit()
+{
+	//write to file
+	//ONLY call if username is set in session
+	
+	$file = "LastVisit.json";
+	$userfound = false;
+	
+	$string = file_get_contents($file);
+	$json = json_decode($string);
+	
+	foreach ($json as $val)
+	{
+		if ($val->username == $_SESSION['Newsusername'])
+		{
+			$val->time = time();
+			$userfound = true;
+		}
+	}
+	
+	if ($userfound == false)
+	{
+		$value = json_encode(array("username" => $_SESSION['Newsusername'], "time" => time()));
+		
+		if ($json == NULL)
+		{
+			$json = $value;
+		}
+		else
+		{
+			array_push($json, $value);
+		}
+	}
+	
+	file_put_contents($file, $json);
+}
+
+function readLastVisit()
+{
+	$file = "LastVisit.json";
+	$userfound = false;
+	
+	$string = file_get_contents($file);
+	$json = json_decode($string);
+	
+	foreach ($json as $val)
+	{
+		if ($val->username == $_SESSION['Newsusername'])
+		{
+			$time = $val->time;
+			$userfound = true;
+		}
+	}
+	
+	//set cookie
+	$year = 31536000 + time(); //this adds one year to the current time, for the cookie expiration 
+	
+	if ($userfound)
+	{
+		setcookie('LastVisit', $time, $year);
+		$_COOKIE['LastVisit'] = $time;
+	}
+	else
+	{
+		setFirstVisit();
+	}
+}
+
 if (!isset($_COOKIE['LastVisit']))
 {
-	setLastVisit();
+	setFirstVisit();
+	
+	//if (isset($_SESSION['Newsusername']))
+	//{
+	//	writeLastVist();
+	//}
+}
+else
+{
+	//read from storage
+	//if (isset($_SESSION['Newsusername']))
+	//{
+	//	readLastVisit();
+	//}	
 }
 
 ?>
@@ -56,7 +137,7 @@ if (!isset($_COOKIE['LastVisit']))
 			
 			if (nextDiv < maxDiv)
 			{
-				$("#" + nextDiv).removeAttr("hidden");
+				$("#" + nextDiv).removeAttr("style");
 				nextDiv++;
 			}
 		});
@@ -95,7 +176,7 @@ if (!isset($_COOKIE['LastVisit']))
 	function pageUnload() 
 	{
 		//for cookies storing, determine when a user leaves the page
-		document.getElementById("body").innerHTML += "<?php setLastVisit();	?>"
+		<?php setFirstVisit(); ?>
 	}
 	
 	function onLikeClick(id)
@@ -105,8 +186,8 @@ if (!isset($_COOKIE['LastVisit']))
 		var descString = document.getElementById("fav_desc_" + id).innerHTML;
 		
 		var http = new XMLHttpRequest();
-		var url = "RSSFeeds.php?";
-		var params = "entry_title=" + titleString + "&entry_link=" + linkString + "&entry_description=" + descString;
+		var url = "Functions.php?";
+		var params = "function=likeArticle&entry_title=" + titleString + "&entry_link=" + linkString + "&entry_description=" + descString;
 		
 		http.open("POST", url, true);
 		
@@ -120,6 +201,28 @@ if (!isset($_COOKIE['LastVisit']))
 				iDiv.innerHTML += http.responseText;
 
 				document.getElementById("FavouritesDiv").appendChild(iDiv);
+			}
+		}
+		
+		http.send(params);
+	}
+	
+	function onUnlikeClick(id)
+	{		
+		var http = new XMLHttpRequest();
+		var url = "Functions.php?";
+		var params = "function=unlikeArticle&id=" + id
+		
+		http.open("POST", url, true);
+		
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		http.onreadystatechange = function() {//Call a function when the state changes.
+			if(http.readyState == 4 && http.status == 200) {
+				// remove the div
+				console.log(http.responseText);
+				document.getElementById("fav_" + id).remove();
 			}
 		}
 		
@@ -150,8 +253,10 @@ if (!isset($_COOKIE['LastVisit']))
 	if (isset($_COOKIE['LastVisit']))
 	{
 		$dateAsString = date("D F Y g:i:s A", $_COOKIE['LastVisit']);				
-		echo "<h1>Welcome back " . $_SESSION['username'] . " your last visit was " . $dateAsString . "</h1>";
+		echo "<h1>Welcome back " . $_SESSION['Newsusername'] . " your last visit was " . $dateAsString . "</h1>";
 	}
+	
+	echo '<a href="Functions.php?function=logout" class="btn btn-primary btn-primary">Logout</a>';
 	
 	DisplayFeedOptions();
 	
@@ -164,6 +269,7 @@ if (!isset($_COOKIE['LastVisit']))
 	echo '</h4>';
 	echo '</div>';
 	echo "<div class='container' align='left' id='FavouritesDiv'>";
+	loadFavs();
 	echo '</div>';
 	echo '</div>';
 	
@@ -234,3 +340,4 @@ if (!isset($_COOKIE['LastVisit']))
 </div>
 </body>
 </html>
+
