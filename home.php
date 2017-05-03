@@ -79,6 +79,34 @@ if (isset($_SESSION['username'])) {
 		//for cookies storing, determine when a user leaves the page
 		document.getElementById("body").innerHTML += "<?php setLastVisit(); ?>"
 	}
+	
+	function onLikeClick(id)
+	{
+		var titleString = document.getElementById("fav_title_" + id).innerHTML;
+		var linkString = document.getElementById("fav_link_" + id).innerHTML;
+		var descString = document.getElementById("fav_desc_" + id).innerHTML;
+		
+		var http = new XMLHttpRequest();
+		var url = "RSSFeeds.php?";
+		var params = "entry_title=" + titleString + "&entry_link=" + linkString + "&entry_description=" + descString;
+		
+		http.open("POST", url, true);
+		
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		http.onreadystatechange = function() {//Call a function when the state changes.
+			if(http.readyState == 4 && http.status == 200) {
+				var iDiv = document.createElement('div');
+				iDiv.id = id;
+				iDiv.innerHTML += http.responseText;
+
+				document.getElementById("FavouritesDiv").appendChild(iDiv);
+			}
+		}
+		
+		http.send(params);
+	}
 		
 	</script>
 	
@@ -178,6 +206,17 @@ if (isset($_SESSION['username'])) {
 	<div align="center">
 	  <footer>Email: <a href="mailto:djr9478@rit.edu" target="_top">djr9478@rit.edu </a> &copy Daniel Roberts</footer>
 	</div>	
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-98350487-1', 'auto');
+	ga('send', 'pageview');
+
+	</script>
 	
 </body>
 </html>
