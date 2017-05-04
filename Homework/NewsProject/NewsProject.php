@@ -295,7 +295,7 @@ else
 	<div align="left">
 		<h1>Log In</h1><br>	
 	</div>
-	<form method="post" action="Functions.php?function=login">
+	<form method="post" action="NewsProject.php?function=login">
 		<div class="form-group">
 			<label class="form-control-label">Username</label>
 			<input class="form-control" type="text" placeholder="Username" name="username" required >
@@ -317,7 +317,7 @@ else
 	<div align="left">
 		<h1>Sign Up</h1><br>	
 	</div>
-	<form method="post" action="Functions.php?function=signup">
+	<form method="post" action="NewsProject.php?function=signup">
 		<div class="form-group">
 			<label class="form-control-label">Username</label>
 			<input class="form-control" type="text" placeholder="Username" name="username" required >

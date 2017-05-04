@@ -60,17 +60,22 @@ if (isset($_POST['function']))
 	}
 }
 
-function login()
+function login($username)
 {
+	if ($username == null)
+	{
+		$username = $_POST['username'];
+	}
+	
 	//check if user already exists
 	$inp = file_get_contents($GLOBALS["data_file"]);
 	$tempArray = json_decode($inp);
 	
 	foreach ($tempArray as $user)
 	{
-		if ($user->username == $_POST['username'])
+		if ($user->username == $username)
 		{
-			$_SESSION['Newsusername'] = $_POST['username'];
+			$_SESSION['Newsusername'] = $username;
 			$_SESSION['Newsloggedin'] = true;
 			$_SESSION['articles'] = $user->articles;
 			
@@ -78,7 +83,8 @@ function login()
 		}
 	}
 	
-	echo "Invalid login";
+	$message = "Login invalid, please try again";
+	echo "<script type='text/javascript'>alert('$message');</script>";
 	return false;
 }
 
@@ -98,7 +104,8 @@ function signup()
 	{
 		if ($user->username == $_POST['username'])
 		{
-			echo "Invalid Username, please try again";
+			$message = "Invalid username, please try again";
+			echo "<script type='text/javascript'>alert('$message');</script>";
 			return false;
 		}
 	}
@@ -118,8 +125,7 @@ function signup()
 	$jsonData = json_encode($tempArray);
 	
 	file_put_contents($GLOBALS["data_file"], $jsonData);
-	
-	echo "Success, please go back and login";
+	login($_POST['username']);
 }
 
 function DisplayFeeds()
