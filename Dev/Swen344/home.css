@@ -1,0 +1,39 @@
+.company {
+	border-style: solid;
+    border-width: 1px;
+	margin: 50px;
+	padding: 5px;
+	
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feffff+1,ddf1f9+17,ddf1f9+51,a0d8ef+100 */
+	background: rgb(254,255,255); /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, rgba(254,255,255,1) 1%, rgba(221,241,249,1) 17%, rgba(221,241,249,1) 51%, rgba(160,216,239,1) 100%); /* FF3.6-15 */
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(254,255,255,1) 1%,rgba(221,241,249,1) 17%,rgba(221,241,249,1) 51%,rgba(160,216,239,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: radial-gradient(ellipse at center, rgba(254,255,255,1) 1%,rgba(221,241,249,1) 17%,rgba(221,241,249,1) 51%,rgba(160,216,239,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#a0d8ef',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.allCompanies {
+	border-style: solid;
+    border-width: 1px;
+	padding: 5px;
+	
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7abcff+0,60abf8+44,4096ee+100;Blue+3D+%2314 */
+	background: rgb(122,188,255); /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, rgba(122,188,255,1) 0%, rgba(96,171,248,1) 44%, rgba(64,150,238,1) 100%); /* FF3.6-15 */
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: radial-gradient(ellipse at center, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.loggedInHeader {
+	border-style: solid;
+    border-width: 1px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+.solidBorder {
+	border-style: solid;
+    border-width: 1px;
+}
+

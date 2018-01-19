@@ -260,27 +260,18 @@ else
 	
 	DisplayFeedOptions();
 	
-	echo '<div class="panel-group">';
+	echo '<ul class="nav nav-pills">';
+	echo '<li class="active"><a data-toggle="pill" href="#FeedDiv">All</a></li>';
+	echo '<li><a data-toggle="pill" href="#FavouritesDiv">Favorites</a></li>';
+	echo '</ul>';
+
+	echo '<div class="tab-content">';
 	
-	echo '<div class="panel panel-default">';
-	echo '<div class="panel-heading">';
-	echo '<h4 class="panel-title">';
-	echo '<a align="left" data-toggle="collapse" href="#FavouritesDiv">Favorites</a>';
-	echo '</h4>';
-	echo '</div>';
-	echo "<div class='container' align='left' id='FavouritesDiv'>";
+	echo "<div class='tab-pane fade' align='left' id='FavouritesDiv'>";
 	loadFavs();
 	echo '</div>';
-	echo '</div>';
 	
-	echo '<div class="panel panel-default">';
-	echo '<div class="panel-heading">';
-	echo '<h4 class="panel-title">';
-	echo '<a align="left" data-toggle="collapse" href="#FeedDiv">News Feeds</a>';
-	echo '</h4>';
-	echo '</div>';
-	echo "<div class='container' align='left' id='FeedDiv'>";
-	echo '</div>';
+	echo "<div class='tab-pane fade in active' align='left' id='FeedDiv'>";
 	echo '</div>';
 	
 	echo '</div>';
