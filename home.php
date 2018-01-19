@@ -127,6 +127,7 @@ if (isset($_SESSION['username'])) {
 				<ul class="nav navbar-nav navbar-left">
 					<li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
 					<li><a href="Homework.html">Homework</a></li>
+					<li><a href="Swen440/swen440.html">Swen440</a></li>
 					<li><a href="about.php">About</a></li>					
 				</ul>
 				
